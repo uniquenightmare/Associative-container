@@ -94,21 +94,21 @@ private:
 	vector<Node> _table;
 	size_t _size;
 };
-void test()
-{
-	HashTable<int, int> ht;
-	ht.insert(make_pair(1, 1));
-	ht.insert(make_pair(18, 18));
-	ht.insert(make_pair(23, 23));
-	ht.insert(make_pair(4, 4));
-	ht.insert(make_pair(54, 54));
-	cout << ht.erase(18) << endl;
-	cout << ht.erase(17) << endl;
-
-}
-int main()
-{
-	test();
-	system("pause");
-	return 0;
-}
+//void test()
+//{
+//	HashTable<int, int> ht;
+//	ht.insert(make_pair(1, 1));
+//	ht.insert(make_pair(18, 18));
+//	ht.insert(make_pair(23, 23));
+//	ht.insert(make_pair(4, 4));
+//	ht.insert(make_pair(54, 54));
+//	cout << ht.erase(18) << endl;
+//	cout << ht.erase(17) << endl;
+//
+//}
+////int main()
+////{
+////	test();
+////	system("pause");
+////	return 0;
+////}
