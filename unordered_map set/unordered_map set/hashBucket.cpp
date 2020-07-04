@@ -1,6 +1,7 @@
 #define  _CRT_SECURE_NO_WARNINGS 1
 #include<vector>
 #include<iostream>
+#include<string>
 using namespace std;
 template<class K>
 struct KeyofValue
@@ -29,9 +30,9 @@ struct HIterator
 	typedef Node* pNode;
 	
 	typedef HashBacket<K, V, KeyofValue> htable;
-	typedef HIterator<V> Self;
+	typedef HIterator<K,V,KeyofValue> Self;
 	pNode _node;
-	htable *_ht
+	htable *_ht;
 	HIterator(pNode node,htable* ht)
 		:_node(node)
 		, _ht(ht)
@@ -40,15 +41,15 @@ struct HIterator
 	{
 		return _node->_data;
 	}
-	V& operator ->()
+	V* operator ->()
 	{
-		return *_node->_data;
+		return &_node->_data;
 	}
 	bool operator !=(const Self& it)
 	{
 		return _node != it._node;
 	}
-	Selft& operator++()
+	Self& operator++()
 	{
 		if (_node->_next)
 		{
@@ -80,8 +81,24 @@ public:
 	typedef HashNode<V> Node;
 	typedef Node* pNode;
 	template<class K, class V, class KeyofValue>
-	friend struct HIterator
-	bool insert(const V&data)
+	friend struct HIterator;
+	typedef HIterator<K, V, KeyofValue> iterator;
+	iterator begin()
+	{
+		for (size_t i = 0; i < _table.size(); i++)
+		{
+			if (_table[i])
+			{
+				return iterator(_table[i], this);
+			}
+		}
+		return end();
+	}
+	iterator end()
+	{
+		return iterator(nullptr,this);
+	}
+	pair<iterator,bool> insert(const V&data)
 	{
 		check();
 		KeyofValue kov;
@@ -90,14 +107,14 @@ public:
 		while (cur)
 		{
 			if (kov(cur->_data) == kov(data))
-				return false;
+				return make_pair(iterator(cur,this),false);
 			cur = cur->_next;
 		}
 		cur = new Node(data);
 		cur->_next = _table[idx];
 		_table[idx] = cur;
 		_size++;
-		return true;
+		return make_pair(iterator(cur, this), true);
 	}
 	void check()
 	{
@@ -127,10 +144,31 @@ private:
 	vector<pNode> _table;
 	size_t _size;
 };
+template<class K>
+struct HashFun
+{
+	int operator()(const string&key)
+	{
+		return key;
+	}
+};
+template<>
+struct HashFun<string>
+{
+	int operator()(const string&key)
+	{
+		int hash = 0;
+		for (auto &ch : key)
+		{
+			hash = hash * 131 + ch;
+		}
+		return hash;
+	}
+};
 template<class K,class V>
 class Unoreder_map
 {
-	struct MayKeyofValue
+	struct MapKeyofValue
 	{
 		const K& operator()(const pair<K, V>& data)
 		{
@@ -138,39 +176,72 @@ class Unoreder_map
 		}
 	};
 public:
+	typedef typename HashBacket<K, pair<K, V>, MapKeyofValue>::iterator iterator;
+	iterator begin()
+	{
+		return _hb.begin();
+	}
+	iterator end()
+	{
+		return _hb.end();
+	}
 	bool insert(const pair<K, V>& data)
 	{
 		return _hb.insert(data);
 	}
+	V& operator[](const K& key)
+	{
+		pair<iterator, bool> ret = _hb.insert(make_pair(key, V()));
+		return ret.first->second;
+	}
 private:
 	HashBacket<K, pair<K, V>, MapKeyofValue> _hb;
 };
+template <class V>
+class Unorder_set
+{
+	
+	struct SetKeyofValue
+	{
+		const V& operator()(const V&data)
+		{
+			return data;
+		}
+	};
+public:
+	typedef typename HashBacket<V, V, SetKeyofValue>::iterator iterator;
+	bool insert(const V&data)
+	{
+		return _hb.insert(data);
+	}
+	iterator begin()
+	{
+		return _hb.begin();
+	}
+	iterator end()
+	{
+		return _hb.end();
+	}
+private:
+	HashBacket<V, V, SetKeyofValue> _hb;
+};
 void test()
 {
-	HashBacket<int, int, KeyofValue<int>> hb;
-	hb.insert(21);
-	hb.insert(48);
-	hb.insert(36);
-	hb.insert(43);
-	hb.insert(5);
-	hb.insert(61);
-	hb.insert(78);
-	hb.insert(15);
-	hb.insert(6);
-	hb.insert(23);
-	hb.insert(51);
-	hb.insert(52);
-	hb.insert(53);
-	hb.insert(54);
-	hb.insert(55);
-	hb.insert(56);
-
-
-
+	Unoreder_map<int, int> mp;
+	mp[1] = 1;
+	mp[2] = 2;
+	mp[3] = 3;
+	mp[4] = 4;
+	Unoreder_map<int, int>::iterator it = mp.begin();
+	for (; it != mp.end() ; it++)
+	{
+		cout << it->first << "-->" << it->second << endl;
+	}
 }
 
 int main()
 {
 	test();
+	system("pause");
 	return 0;
 }

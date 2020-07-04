@@ -1,8 +1,37 @@
-﻿生成启动时间为 2020/7/3 17:12:53。
+﻿生成启动时间为 2020/7/4 19:25:18。
      1>项目“F:\bite homework\C语言进阶\unordered_map set\unordered_map set\unordered_map set.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         D:\vs\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt hashTable.cpp
-         hashTable.cpp
+         D:\vs\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt hashBucket.cpp
+         hashBucket.cpp
+     1>f:\bite homework\c语言进阶\unordered_map set\unordered_map set\hashbucket.cpp(214): warning C4620: 未找到类型“HIterator<K,V,KeyofValue>”的“运算符 ++”后缀形式，使用前缀形式
+                 with
+                 [
+                     K=int
+         ,            V=std::pair<int,int>
+         ,            KeyofValue=Unoreder_map<int,int>::MapKeyofValue
+                 ]
+     1>f:\bite homework\c语言进阶\unordered_map set\unordered_map set\hashbucket.cpp(62): warning C4018: “<”: 有符号/无符号不匹配
+                 f:\bite homework\c语言进阶\unordered_map set\unordered_map set\hashbucket.cpp(52): 编译类 模板 成员函数“HIterator<K,V,KeyofValue> &HIterator<K,V,KeyofValue>::operator ++(void)”时
+                 with
+                 [
+                     K=int
+         ,            V=std::pair<int,int>
+         ,            KeyofValue=Unoreder_map<int,int>::MapKeyofValue
+                 ]
+                 f:\bite homework\c语言进阶\unordered_map set\unordered_map set\hashbucket.cpp(214): 参见对正在编译的函数 模板 实例化“HIterator<K,V,KeyofValue> &HIterator<K,V,KeyofValue>::operator ++(void)”的引用
+                 with
+                 [
+                     K=int
+         ,            V=std::pair<int,int>
+         ,            KeyofValue=Unoreder_map<int,int>::MapKeyofValue
+                 ]
+                 f:\bite homework\c语言进阶\unordered_map set\unordered_map set\hashbucket.cpp(213): 参见对正在编译的类 模板 实例化“HIterator<K,V,KeyofValue>”的引用
+                 with
+                 [
+                     K=int
+         ,            V=std::pair<int,int>
+         ,            KeyofValue=Unoreder_map<int,int>::MapKeyofValue
+                 ]
        Link:
          D:\vs\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\bite homework\C语言进阶\unordered_map set\Debug\unordered_map set.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:\bite homework\C语言进阶\unordered_map set\Debug\unordered_map set.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\bite homework\C语言进阶\unordered_map set\Debug\unordered_map set.lib" /MACHINE:X86 Debug\hashBucket.obj
          Debug\hashTable.obj
@@ -11,4 +40,4 @@
 
 生成成功。
 
-已用时间 00:00:00.77
+已用时间 00:00:00.72
